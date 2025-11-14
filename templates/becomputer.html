@@ -8,7 +8,6 @@
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <script src="https://kit.fontawesome.com/a2e0e6ad0f.js" crossorigin="anonymous"></script>
 
-  <!-- Apply saved theme instantly on page load -->
   <script>
     (function() {
       const savedTheme = localStorage.getItem('theme') || 'light';
@@ -17,9 +16,17 @@
   </script>
 
   <style>
-    /* ===== General Reset ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-    html, body { width: 100%; height: 100%; overflow-x: hidden; }
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Montserrat', sans-serif; 
+    }
+    html, body { 
+      width: 100%; 
+      height: 100%; 
+      overflow-x: hidden; 
+    }
 
     body {
       display: flex;
@@ -30,13 +37,36 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* Floating circles */
-    .circle { position: absolute; border-radius: 50%; opacity: 0.15; animation: float 12s infinite ease-in-out alternate; }
-    .circle1 { width: 250px; height: 250px; top: -50px; left: -50px; background: #fff; }
-    .circle2 { width: 300px; height: 300px; bottom: -100px; right: -80px; background: #000; animation-duration: 15s; }
-    @keyframes float { from { transform: translateY(0); } to { transform: translateY(30px); } }
 
-    /* Sidebar */
+    .circle { 
+      position: absolute; 
+      border-radius: 50%; 
+      opacity: 0.15; 
+      animation: float 12s infinite ease-in-out alternate; 
+    }
+    .circle1 { 
+      width: 250px; 
+      height: 250px; 
+      top: -50px; 
+      left: -50px; 
+      background: #fff; 
+    }
+    .circle2 { 
+      width: 300px; 
+      height: 300px; 
+      bottom: -100px; 
+      right: -80px; 
+      background: #000; 
+      animation-duration: 15s; 
+    }
+    @keyframes float { 
+      from { 
+        transform: translateY(0); 
+      } to { 
+        transform: translateY(30px); 
+      } 
+    }
+
     .sidebar {
       width: 220px;
       background: rgba(255,255,255,0.05);
@@ -91,7 +121,6 @@
       box-shadow: 0 6px 20px rgba(167,29,29,0.9);
     }
 
-    /* Content area */
     .content {
       flex: 1;
       padding: 40px;
@@ -137,11 +166,26 @@
     }
     .hidden { display: none !important; }
 
-    /* Animations */
-    @keyframes fadeInMoveDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInMoveUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInMoveDown { 
+      from { 
+        opacity: 0; 
+        transform: translateY(-20px); 
+      } to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      } 
+    }
+    @keyframes fadeInMoveUp { 
+      from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+      } to 
+      { 
+        opacity: 1; 
+        transform: translateY(0); 
+      } 
+    }
 
-    /* ===== Mobile View Adjustments ===== */
     @media (max-width: 700px) {
       body {
         flex-direction: row;
@@ -193,7 +237,6 @@
       .circle1, .circle2 { max-width: 150vw; max-height: 150vh; }
     }
 
-    /* ===== THEME COLORS ===== */
     :root {
       --bg-color: linear-gradient(135deg, #00bcd4, #00796b);
       --text-color: #ffffff;
@@ -216,11 +259,9 @@
   </style>
 </head>
 <body>
-  <!-- Floating circles -->
   <div class="circle circle1"></div>
   <div class="circle circle2"></div>
 
-  <!-- Sidebar -->
   <div class="sidebar">
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <h2>Semesters</h2>
@@ -233,8 +274,7 @@
     <div id="goBackBtn" class="go-back-btn">← Go Back</div>
   </div>
 
-  <!-- Content -->
-  <div class="content">
+   <div class="content">
     <h2 id="selectedSemesterTitle">Select a semester</h2>
     <div id="levelsContainer" class="levels hidden">
       <button class="level-btn" data-level="Easy">Easy</button>
@@ -250,7 +290,6 @@
     const goBackBtn = document.getElementById("goBackBtn");
     let selectedSemester = null;
 
-    // Generate semester buttons
     for(let i=1; i<=8; i++){
       const semDiv = document.createElement("div");
       semDiv.textContent = "Semester " + i;
@@ -264,7 +303,6 @@
       selectedSemesterTitle.textContent = name;
       levelsContainer.classList.remove("hidden");
 
-      // Restart animations
       selectedSemesterTitle.style.animation = "none";
       levelsContainer.style.animation = "none";
       void selectedSemesterTitle.offsetWidth;
@@ -289,7 +327,6 @@
       window.location.href = "{{ url_for('student_dashboard') }}";
     });
 
-    // Theme toggle logic
     const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
 
@@ -301,11 +338,9 @@
         : '<i class="fa-solid fa-moon"></i>';
     }
 
-    // Initialize theme and icon
     const currentTheme = localStorage.getItem('theme') || 'light';
     setTheme(currentTheme);
 
-    // Toggle theme on click
     themeToggle.addEventListener('click', () => {
       const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       setTheme(newTheme);
