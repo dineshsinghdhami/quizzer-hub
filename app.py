@@ -721,7 +721,12 @@ def delete_report(report_id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"ok": False, "error": str(e)}), 500
-
+    
+@app.route('/check_username')
+def check_username():
+    username = request.args.get('username', '').strip()
+    exists = User.query.filter_by(username=username).first()
+    return jsonify({"available": exists is None})
 
 @app.route('/logout')
 def logout():
