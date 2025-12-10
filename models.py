@@ -1,4 +1,3 @@
-# models.py
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -10,3 +9,4 @@ class User(db.Model):
     username = db.Column(db.String(100), unique=True)
     email = db.Column(db.String(120), unique=True)
     role = db.Column(db.String(50))
+
